@@ -19,8 +19,8 @@ const Menu = ({
         })
       },
       {
-        threshold: matches ? 0 : 0.9,
-        // threshold: 0.9,
+        threshold: matches ? 0.1 : 0.9,
+        // // threshold: 0.9,
         ...(!matches && {
           rootMargin: `${Math.floor(
             (blockRef.current?.[0]?.getBoundingClientRect()?.height * 9) / 100,
