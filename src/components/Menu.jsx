@@ -1,30 +1,17 @@
 import React, { useEffect } from 'react'
-
+import useMediaQuery from '../hooks/useMediaQuery'
 const Menu = ({
   children,
   onBlockInterSection = () => null,
   containerClassName = '',
-  activeSection,
   action,
 }) => {
-  const tabsRef = React.useRef(null)
   const blockRef = React.useRef([])
+  const matches = useMediaQuery('(max-width: 991.98px)')
+
   useEffect(() => {
-    // if (!tabsRef.current) return;
     const observer = new IntersectionObserver(
       (enteries) => {
-        //   //   console.log(enteries[0]);
-        //   if (enteries[0].isIntersecting) {
-        //     onBlockInterSection(, enteries[0]);
-        //   }
-        //   for (const entry of enteries) {
-        //     if (entry.isIntersecting) {
-        //       // compare target to element list
-        //       const currentIndex = blockRef.current.indexOf(entry.target);
-        //       console.log(currentIndex);
-        //     }
-        //   }
-        console.log(`-${blockRef.current[0].getBoundingClientRect().height}px`)
         enteries.forEach((entry, idx) => {
           if (entry.isIntersecting) {
             onBlockInterSection(+entry.target.id)
@@ -32,16 +19,19 @@ const Menu = ({
         })
       },
       {
+        threshold: matches ? 0 : 0.9,
         // threshold: 0.9,
-        // rootMargin: `${
-        //   blockRef.current?.[0]?.getBoundingClientRect()?.height / 2
-        // }px`,
+        ...(!matches && {
+          rootMargin: `${Math.floor(
+            (blockRef.current?.[0]?.getBoundingClientRect()?.height * 9) / 100,
+          )}px`,
+        }),
       },
     )
     blockRef.current?.forEach((block, idx) => {
       observer.observe(block)
     })
-  }, [])
+  }, [matches])
 
   const scrollSelectedToBlock = (index) => {
     const blockRects = blockRef.current[index].getBoundingClientRect()
