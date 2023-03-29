@@ -32,10 +32,10 @@ const Menu = ({
         })
       },
       {
-        threshold: 0.9,
-        rootMargin: `${
-          blockRef.current?.[0]?.getBoundingClientRect()?.height / 2
-        }px`,
+        // threshold: 0.9,
+        // rootMargin: `${
+        //   blockRef.current?.[0]?.getBoundingClientRect()?.height / 2
+        // }px`,
       },
     )
     blockRef.current?.forEach((block, idx) => {

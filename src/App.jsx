@@ -21,7 +21,7 @@ function App() {
     setActiveTab(index)
   }
   return (
-    <MenuContainer className="">
+    <MenuContainer className="-fluid">
       <div className="sticky-top bg-light" style={{ zIndex: 9999 }}>
         <div className="container">
           <Tabs activeTab={activeTab} onTabClick={onTabClick}>
@@ -32,8 +32,8 @@ function App() {
           </Tabs>
         </div>
       </div>
-      <div className="row">
-        <div className="col-md-9 mx-auto">
+      <div className="row mx-auto justify-content-center">
+        <div className="col-md-9 ">
           <Menu
             onBlockInterSection={onBlockInterSection}
             // containerClassName="container"
