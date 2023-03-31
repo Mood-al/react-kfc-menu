@@ -14,18 +14,19 @@ const Menu = ({
       (enteries) => {
         enteries.forEach((entry, idx) => {
           if (entry.isIntersecting) {
+            console.log(entry.target, entry)
             onBlockInterSection(+entry.target.id)
           }
         })
       },
       {
-        threshold: matches ? 0.1 : 0.9,
-        // // threshold: 0.9,
-        ...(!matches && {
-          rootMargin: `${Math.floor(
-            (blockRef.current?.[0]?.getBoundingClientRect()?.height * 9) / 100,
-          )}px`,
-        }),
+        // threshold: 1,
+        // threshold: matches ? 0.1 : 0.9,
+        // ...(!matches && {
+        //   rootMargin: `${Math.floor(
+        //     (blockRef.current?.[0]?.getBoundingClientRect()?.height * 9) / 100,
+        //   )}px`,
+        // }),
       },
     )
     blockRef.current?.forEach((block, idx) => {
@@ -58,23 +59,33 @@ const Menu = ({
         // const selected = childIndex === activeTab
         // childIndex += 1
 
-        return React.cloneElement(child, {
-          ref: (ref) => (blockRef.current[index] = ref),
-          //   onClick: (e) => {
-          //     onNativeTabClick(e, index)
-          //     // eslint-disable-next-line no-unused-expressions
-          //     child.props.onClick ? child.props.onClick(e) : null
-          //   },
-          //   role: 'tab',
-          //   'aria-selected': selected ? 'true' : 'false',
-          //   id: `tab-${childIndex}`,
-          //   tabIndex: selected ? '0' : '-1',
-          className: `id-${index} ${
-            child.props.className ? child.props.className : ''
-          }`,
-          id: index,
-          //   selected: selected
-        })
+        return (
+          <div style={{ position: 'relative' }}>
+            <div
+              ref={(ref) => (blockRef.current[index] = ref)}
+              id={index}
+              className="p-4"
+              style={{ position: 'absolute', top: 0, zIndex: '-1' }}
+            ></div>
+            {React.cloneElement(child, {
+              // ref: (ref) => (blockRef.current[index] = ref),
+              //   onClick: (e) => {
+              //     onNativeTabClick(e, index)
+              //     // eslint-disable-next-line no-unused-expressions
+              //     child.props.onClick ? child.props.onClick(e) : null
+              //   },
+              //   role: 'tab',
+              //   'aria-selected': selected ? 'true' : 'false',
+              //   id: `tab-${childIndex}`,
+              //   tabIndex: selected ? '0' : '-1',
+              className: `id-${index} ${
+                child.props.className ? child.props.className : ''
+              }`,
+              id: index,
+              //   selected: selected
+            })}
+          </div>
+        )
       })}
     </div>
   )
