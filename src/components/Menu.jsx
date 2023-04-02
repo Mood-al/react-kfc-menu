@@ -51,7 +51,7 @@ const Menu = ({
     }
   }, [])
 
-  const scrollSelectedToBlock = (index, ) => {
+  const scrollSelectedToBlock = (index) => {
     const blockRects = blockRef.current[index].getBoundingClientRect()
 
     const blockToTopGap =
@@ -59,11 +59,8 @@ const Menu = ({
       blockRef.current[0].getBoundingClientRect().top
 
     window.scrollTo({
-      top:
-        document.documentElement.scrollTop +
-        blockRects.top -
-        blockToTopGap +
-       ,
+      top: document.documentElement.scrollTop + blockRects.top - blockToTopGap,
+
       behavior: scrollBahavior,
     })
   }
