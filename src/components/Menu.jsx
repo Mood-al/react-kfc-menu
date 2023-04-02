@@ -1,44 +1,70 @@
 import React, { useEffect } from 'react'
-import useMediaQuery from '../hooks/useMediaQuery'
+import { debounce } from '../../utils/debounce'
+
 const Menu = ({
   children,
   onBlockInterSection = () => null,
   containerClassName = '',
+  indicatorClassName = '',
+  indicatorTopPostion = 80,
+  showIndicator = false,
+  scrollBahavior = 'auto',
   action,
 }) => {
   const blockRef = React.useRef([])
-  const matches = useMediaQuery('(max-width: 991.98px)')
+  const indicatorRef = React.useRef(null)
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (enteries) => {
-        enteries.forEach((entry, idx) => {
-          if (entry.isIntersecting) {
-            console.log(entry.target, entry)
-            onBlockInterSection(+entry.target.id)
-          }
-        })
-      },
-      {
-        // threshold: 1,
-        // threshold: matches ? 0.1 : 0.9,
-        // ...(!matches && {
-        //   rootMargin: `${Math.floor(
-        //     (blockRef.current?.[0]?.getBoundingClientRect()?.height * 9) / 100,
-        //   )}px`,
-        // }),
-      },
-    )
-    blockRef.current?.forEach((block, idx) => {
-      observer.observe(block)
-    })
-  }, [matches])
+  let idxArray = []
+  var prev = null
+  const handleScroll = debounce((event) => {
+    idxArray = []
+    const indicatorRects = indicatorRef.current.getBoundingClientRect()
 
-  const scrollSelectedToBlock = (index) => {
+    const id = document.elementFromPoint(indicatorRects.x, indicatorRects.y)
+      .dataset.id
+
+    if (prev !== id) {
+      onBlockInterSection(+id)
+    }
+
+    prev = id
+    // const idx = document.elementFromPoint(indicatorRects.x, indicatorRects.y).data
+    // blockRef.current.forEach((item, idx) => {
+    //   const blockRects = item.getBoundingClientRect()
+
+    //   if (blockRects.top <= indicatorRects.bottom) {
+    //     idxArray.push(idx)
+    //     console.log(idxArray.length - 1)
+    //     // if (idx === array.length - 1) {
+    //     // onBlockInterSection(idxArray.length - 1)
+    //     // }
+    //   }
+    // })
+  })
+
+  React.useEffect(() => {
+    if (typeof window === 'undefined') return
+    handleScroll()
+    window.addEventListener('scroll', handleScroll)
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+    }
+  }, [])
+
+  const scrollSelectedToBlock = (index, ) => {
     const blockRects = blockRef.current[index].getBoundingClientRect()
+
+    const blockToTopGap =
+      document.documentElement.scrollTop +
+      blockRef.current[0].getBoundingClientRect().top
+
     window.scrollTo({
-      top: blockRects.top + document.documentElement.scrollTop - 100,
-      behavior: 'instant',
+      top:
+        document.documentElement.scrollTop +
+        blockRects.top -
+        blockToTopGap +
+       ,
+      behavior: scrollBahavior,
     })
   }
   React.useImperativeHandle(
@@ -51,38 +77,34 @@ const Menu = ({
 
   return (
     <div className={containerClassName}>
+      <div
+        className={indicatorClassName}
+        ref={indicatorRef}
+        style={{
+          position: 'fixed',
+          top: indicatorTopPostion,
+          zIndex: '-1',
+          ...(showIndicator && {
+            height: 4,
+            background: 'red',
+            zIndex: '99',
+            width: '100%',
+          }),
+        }}
+      ></div>
       {React.Children.map(children, (child, index) => {
         if (!React.isValidElement(child)) {
           return null
         }
 
-        // const selected = childIndex === activeTab
-        // childIndex += 1
-
         return (
           <div style={{ position: 'relative' }}>
-            <div
-              ref={(ref) => (blockRef.current[index] = ref)}
-              id={index}
-              className="p-4"
-              style={{ position: 'absolute', top: 0, zIndex: '-1' }}
-            ></div>
             {React.cloneElement(child, {
-              // ref: (ref) => (blockRef.current[index] = ref),
-              //   onClick: (e) => {
-              //     onNativeTabClick(e, index)
-              //     // eslint-disable-next-line no-unused-expressions
-              //     child.props.onClick ? child.props.onClick(e) : null
-              //   },
-              //   role: 'tab',
-              //   'aria-selected': selected ? 'true' : 'false',
-              //   id: `tab-${childIndex}`,
-              //   tabIndex: selected ? '0' : '-1',
               className: `id-${index} ${
                 child.props.className ? child.props.className : ''
               }`,
-              id: index,
-              //   selected: selected
+              ['data-id']: index,
+              ref: (ref) => (blockRef.current[index] = ref),
             })}
           </div>
         )

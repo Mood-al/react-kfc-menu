@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useCallback, useRef, useState } from 'react'
 import './styles/bootstrap.css'
 import './styles/rkm.css'
 import './styles/main.css'
@@ -16,13 +16,16 @@ function App() {
   const onTabClick = (e, index) => {
     setActiveTab(index)
     menuRef.current.scrollSelectedToBlock(index)
+    console.log(index, 'onTabClick')
   }
+
   const onBlockInterSection = (index) => {
+    console.log(index, 'onBlockInterSection')
     setActiveTab(index)
   }
   return (
-    <MenuContainer className="-fluid">
-      <div className="sticky-top bg-light" style={{ zIndex: 9999 }}>
+    <>
+      <div className="sticky-top bg-light">
         <div className="container">
           <Tabs activeTab={activeTab} onTabClick={onTabClick}>
             {/* generating an array to loop through it  */}
@@ -66,7 +69,7 @@ function App() {
           </Menu>
         </div>
       </div>
-    </MenuContainer>
+    </>
   )
 }
 
