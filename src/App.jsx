@@ -8,6 +8,9 @@ import MenuBlock from './components/MenuBlock'
 import { Tabs, Tab } from 'react-tabs-scrollable'
 import 'react-tabs-scrollable/dist/rts.css'
 import MenuContainer from './components/MenuContainer'
+import { Tabs as Tabss } from 'react-testt'
+import 'react-testt/dist/style.css'
+
 function App() {
   const [activeTab, setActiveTab] = React.useState(1)
 
@@ -25,6 +28,7 @@ function App() {
   }
   return (
     <>
+      <Tabss>ddddd</Tabss>
       <div className="sticky-top bg-light">
         <div className="container">
           <Tabs activeTab={activeTab} onTabClick={onTabClick}>
