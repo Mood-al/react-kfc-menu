@@ -145,7 +145,6 @@ export default App;
         <td>string</td>
         <td> sets the indicator className </td>
     </tr>
-       </tr>
       </tr>
         <tr>
         <td><code>indicatorTopPostion</code></td>
@@ -168,8 +167,6 @@ export default App;
           </td>
     </tr>
 </table>
-
-<br />
 
 ### MenuBlock
 
