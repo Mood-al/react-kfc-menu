@@ -1,34 +1,31 @@
-import React, { useCallback, useRef, useState } from 'react'
-import './styles/bootstrap.css'
-import './styles/rkm.css'
-import './styles/main.css'
+import React, { useCallback, useRef, useState } from "react";
+import "./styles/bootstrap.css";
+import "./styles/rkm.css";
+import "./styles/main.css";
 
-import Menu from './components/Menu'
-import MenuBlock from './components/MenuBlock'
-import { Tabs, Tab } from 'react-tabs-scrollable'
-import 'react-tabs-scrollable/dist/rts.css'
-import MenuContainer from './components/MenuContainer'
-import { Tabs as Tabss } from 'react-testt'
-import 'react-testt/dist/style.css'
+import { Tabs, Tab } from "react-tabs-scrollable";
+import "react-tabs-scrollable/dist/rts.css";
+import { Menu, MenuBlock } from "react-kfc-menu";
+
+import "react-testt/dist/style.css";
 
 function App() {
-  const [activeTab, setActiveTab] = React.useState(1)
+  const [activeTab, setActiveTab] = React.useState(1);
 
   // define a onClick function to bind the value on tab click
-  const menuRef = useRef(null)
+  const menuRef = useRef<HTMLDivElement | any>(null);
   const onTabClick = (e, index) => {
-    setActiveTab(index)
-    menuRef.current.scrollSelectedToBlock(index)
-    console.log(index, 'onTabClick')
-  }
+    setActiveTab(index);
+    menuRef.current?.scrollSelectedToBlock(index);
+    console.log(index, "onTabClick");
+  };
 
-  const onBlockInterSection = (index) => {
-    console.log(index, 'onBlockInterSection')
-    setActiveTab(index)
-  }
+  const onBlockIntersection = (index) => {
+    console.log(index, "onBlockIntersection");
+    setActiveTab(index);
+  };
   return (
     <>
-      <Tabss>ddddd</Tabss>
       <div className="sticky-top bg-light">
         <div className="container">
           <Tabs activeTab={activeTab} onTabClick={onTabClick}>
@@ -42,14 +39,14 @@ function App() {
       <div className="row mx-auto justify-content-center">
         <div className="col-md-9 ">
           <Menu
-            onBlockInterSection={onBlockInterSection}
+            onBlockIntersection={onBlockIntersection}
             // containerClassName="container"
-            activeSection={activeTab}
+            // activeSection={activeTab}
             action={menuRef}
           >
             {[...Array(20).keys()].map((item) => (
               <MenuBlock key={item}>
-                <div className="display-4">Block {item}</div>{' '}
+                <div className="display-4">Block {item}</div>{" "}
                 <div className="row">
                   {[...Array(8).keys()].map((card) => (
                     <div key={card} className="col-md-3 my-2">
@@ -74,7 +71,7 @@ function App() {
         </div>
       </div>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
