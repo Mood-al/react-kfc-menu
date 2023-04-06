@@ -51,9 +51,6 @@
     "react": ">=16.9.0",
     "react-dom": ">=16.9.0"
   },
-  "dependencies": {
-    "typescript": "latest"
-  },
   "devDependencies": {
     "@jannajs/lint": "^2.1.2",
     "@mdx-js/mdx": "^1.6.22",
