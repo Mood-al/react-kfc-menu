@@ -1,7 +1,7 @@
 {
   "name": "react-kfc-menu",
   "description": "A React menu that inspired from KFC Menu and behaves like it.",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "author": "Mohamad Aliwi",
   "license": "MIT",
   "type": "module",
