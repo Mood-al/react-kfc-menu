@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { debounce } from "../../utils/debounce";
+import React from "react";
+import { debounce } from "@/utils/debounce";
 
 interface IProps {
   children: React.ReactNode;
@@ -31,12 +31,11 @@ const Menu: React.FC<IProps> = ({
     if (!indicatorRef.current) return;
     const indicatorRects = indicatorRef.current?.getBoundingClientRect();
 
-    const element = document?.elementFromPoint(
-      indicatorRects?.x!,
-      indicatorRects?.y!
-    );
+    const element = document
+      ?.elementsFromPoint(indicatorRects?.x!, indicatorRects?.y!)
+      .find((item) => item.classList.contains("rkm___block___container"));
 
-    const id = element?.getAttribute("data-id")! || activeBlock;
+    let id = element?.getAttribute("data-id")! || activeBlock;
 
     if (prev !== id) {
       onBlockIntersection(event, +id);
@@ -63,11 +62,7 @@ const Menu: React.FC<IProps> = ({
     const blockToTopGap =
       document.documentElement.scrollTop +
       blockRef.current[0].getBoundingClientRect().top;
-    console.log(
-      document.documentElement.scrollTop,
-      window.scrollY,
-      blockRects.top
-    );
+
     window.scrollTo({
       top:
         document.documentElement.scrollTop +
@@ -86,7 +81,7 @@ const Menu: React.FC<IProps> = ({
   );
 
   return (
-    <div className={`${containerClassName || ""}`} id="blockContainer">
+    <div className={`${containerClassName || ""}`}>
       <div
         className={indicatorClassName}
         ref={indicatorRef}

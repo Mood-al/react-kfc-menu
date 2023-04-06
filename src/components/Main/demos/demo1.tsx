@@ -18,6 +18,7 @@ function App() {
   };
 
   const onBlockIntersection = (e, index) => {
+    console.log(index);
     setActiveTab(index);
   };
   return (

@@ -24,54 +24,7 @@ function App() {
     console.log(index, "onBlockIntersection");
     setActiveTab(index);
   };
-  return (
-    <>
-      <div className="sticky-top bg-light">
-        <div className="container">
-          <Tabs activeTab={activeTab} onTabClick={onTabClick}>
-            {/* generating an array to loop through it  */}
-            {[...Array(20).keys()].map((item) => (
-              <Tab key={item}>Tab {item}</Tab>
-            ))}
-          </Tabs>
-        </div>
-      </div>
-      <div className="row mx-auto justify-content-center">
-        <div className="col-md-9 ">
-          <Menu
-            onBlockIntersection={onBlockIntersection}
-            // containerClassName="container"
-            // activeSection={activeTab}
-            action={menuRef}
-          >
-            {[...Array(20).keys()].map((item) => (
-              <MenuBlock key={item}>
-                <div className="display-4">Block {item}</div>{" "}
-                <div className="row">
-                  {[...Array(8).keys()].map((card) => (
-                    <div key={card} className="col-md-3 my-2">
-                      <div className="card">
-                        <div className="card-body">
-                          {card} Lorem ipsum dolor sit amet consectetur,
-                          adipisicing elit. Modi deleniti natus voluptates
-                          doloribus voluptate voluptas ab eum dolorem asperiores
-                          sequi consequatur magnam architecto iure sed tempora,
-                          doloremque nam? Nesciunt, ad!
-                          <button className="btn btn-primary d-block w-100 mt-2">
-                            order
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </MenuBlock>
-            ))}
-          </Menu>
-        </div>
-      </div>
-    </>
-  );
+  return <>ll</>;
 }
 
 export default App;
