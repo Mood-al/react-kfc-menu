@@ -83,8 +83,5 @@
     "**/*.{js,jsx,tsx,ts,css,less,scss,sass,md,yaml}": [
       "prettier --write"
     ]
-  },
-  "dependencies": {
-    "react-tabs-scrollable": "^1.0.10"
   }
 }
