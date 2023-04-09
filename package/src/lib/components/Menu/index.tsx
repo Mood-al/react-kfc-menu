@@ -10,13 +10,17 @@ interface IProps {
   indicatorClassName?: string;
   showIndicator?: boolean;
   scrollBahavior?: any;
-  action?: any;
+  containerStyle?: object;
+  indicatorStyle?: object;
+  action?: React.Ref<{ scrollSelectedToBlock: (index: number) => void }>;
 }
 const Menu: React.FC<IProps> = ({
   children,
   activeBlock,
   onBlockIntersection = () => null,
   containerClassName = "",
+  containerStyle = {},
+  indicatorStyle = {},
   indicatorClassName = "",
   indicatorTopPostion = 80,
   showIndicator = false,
@@ -81,7 +85,7 @@ const Menu: React.FC<IProps> = ({
   );
 
   return (
-    <div className={`${containerClassName || ""}`}>
+    <div style={containerStyle} className={`${containerClassName || ""}`}>
       <div
         className={indicatorClassName}
         ref={indicatorRef}
@@ -89,6 +93,7 @@ const Menu: React.FC<IProps> = ({
           position: "fixed",
           top: indicatorTopPostion,
           zIndex: "-1",
+          ...indicatorStyle,
           ...(showIndicator && {
             height: 4,
             background: "red",

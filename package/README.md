@@ -35,7 +35,7 @@ function App() {
   const [activeTab, setActiveTab] = React.useState(10);
 
   // define a onClick function to bind the value on tab click
-  const menuRef = (React.useRef < HTMLDivElement) | (any > null);
+  const menuRef = useRef < any > null;
   const onTabClick = (e, index) => {
     setActiveTab(index);
     menuRef.current?.scrollSelectedToBlock(index);
@@ -59,9 +59,7 @@ function App() {
       <div className="row mx-auto justify-content-center">
         <div className="col-md-12">
           <Menu
-            // indicatorTopPostion={}
             onBlockIntersection={onBlockIntersection}
-            // containerClassName="container"
             activeBlock={activeTab}
             action={menuRef}
           >
@@ -150,7 +148,10 @@ export default App;
         <td><code>indicatorTopPostion</code></td>
         <td>80</td>
         <td>integer</td>
-        <td> sets the top position of the indicator  </td>
+        <td> sets the top position of the indicator.
+        Note : the indicator is the point where the page's scroll will stop, where a certain block overlaps with the indicator, the onBlockIntersection will trigger,
+         so by changing the top position of it, you can control where the page will land and where the onBlockIntersection will trigger.
+         </td>
     </tr>
      <tr>
         <td><code>showIndicator</code></td>

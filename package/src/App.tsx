@@ -12,10 +12,10 @@ function App() {
   const [activeTab, setActiveTab] = React.useState(1);
 
   // define a onClick function to bind the value on tab click
-  const menuRef = useRef(null);
+  const menuRef = useRef<any>(null);
   const onTabClick = (e: any, index: React.SetStateAction<number>) => {
     setActiveTab(index);
-    // @ts-ignore
+
     menuRef.current?.scrollSelectedToBlock(index);
     console.log(index, "onTabClick");
   };
@@ -30,6 +30,7 @@ function App() {
         className="sticky-top bg-light"
         style={{ position: "sticky", top: 0, background: "white", zIndex: 99 }}
       >
+        ddd
         <div className="container">
           <Tabs activeTab={activeTab} onTabClick={onTabClick}>
             {/* generating an array to loop through it  */}
@@ -43,7 +44,9 @@ function App() {
         <div className="col-md-9 ">
           <Menu
             onBlockIntersection={onBlockIntersection}
-            // // containerClassName="container"
+            containerClassName="containerss"
+            // containerStyle={{ margin: "11px" }}
+
             // indicatorTopPostion={60}
             activeBlock={activeTab}
             action={menuRef}
