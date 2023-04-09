@@ -196,8 +196,6 @@ export default App;
 
 > If you liked this project consider <a href="https://www.buymeacoffee.com/Mooder" target="_blank" rel="noopener"><span>buying me a coffe</span> </a>
 
-> Big thanks to <a href="https://github.com/yunsii" target="_blank" rel="noopener"><span>@yunsii</span> </a> for starter-vite-react-library's repo that I used in this package.
-
 ## License
 
 MIT © [Mohammed Aliwi](https://github.com/Mood-al)
